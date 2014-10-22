@@ -16,6 +16,7 @@ public class RenderToPng {
             final OutputStream png = new FileOutputStream("out.png");
             String source = "@startuml\n";
             for (final TracingEvent message : messages) {
+                // TODO use renderers and remove asXXXMessage methods
                 switch (message.getTraceType()) {
                     case ENTRY:
                         source += message.asCallMessage()+"\n";
@@ -27,7 +28,6 @@ public class RenderToPng {
                         source += message.getTarget().getName() + " -> " + message.getSource().getName() + " : <color:red>throws" + "(" + Arrays.deepToString(message.getArgs()) + ")</color>"+"\n";
                         break;
                 }
-
             }
 
             source += "@enduml\n";
