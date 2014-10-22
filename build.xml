@@ -1,0 +1,34 @@
+<project name="TraceToPlantUml" default="run" basedir=".">
+
+    <path id="project.class.path">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir=".">
+            <include name="tracetoplantuml.jar"/>
+        </fileset>
+    </path>
+
+    <target name="run">
+        <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+            <classpath>
+                <pathelement location="lib/aspectjtools.jar"/>
+            </classpath>
+        </taskdef>
+
+        <iajc
+                outjar="tracetoplantuml.jar"
+                classpathref="project.class.path"
+                source="1.7"
+                >
+            <sourceroots>
+                <pathelement location="src/main/java"/>
+                <pathelement location="src/main/aspectj"/>
+            </sourceroots>
+            
+        </iajc>
+
+        <java classname="de.kontext_e.spikes.trace_to_plantuml.main.Main"
+              classpathref="project.class.path"/>
+    </target>
+</project>
